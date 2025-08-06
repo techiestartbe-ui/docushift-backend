@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuShift Pro | The Ultimate Toolkit for Documents & Media</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #f8f9fa;
+            --bg-color: #ffffff;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+            --border-color: #dee2e6;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-heavy: rgba(0, 0, 0, 0.1);
+            --font-main: 'Inter', sans-serif;
+        }
+        body { font-family: var(--font-main); margin: 0; background-color: var(--secondary-color); color: var(--text-dark); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: var(--bg-color); box-shadow: 0 2px 4px var(--shadow-light); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        header .container { display: flex; justify-content: center; align-items: center; }
+        .logo { text-decoration: none; display: flex; align-items: center; gap: 12px; }
+        .logo h1 { margin: 0; font-size: 1.75rem; font-weight: 700; color: var(--text-dark); }
+        .logo i { font-size: 1.7rem; color: var(--primary-color); }
+        .hero { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); text-align: center; padding: 50px 20px 40px; }
+        .hero h2 { font-size: 2.6rem; font-weight: 700; margin: 0 0 10px; color: var(--text-dark); }
+        .hero p { font-size: 1.15rem; font-weight: 400; max-width: 650px; margin: 0 auto; color: var(--text-light); }
+        #tools { padding: 60px 0; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .tool-card { background-color: var(--bg-color); border-radius: 12px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center; }
+        .tool-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px var(--shadow-heavy), 0 0 20px var(--glow-color, transparent); }
+        .card-content { flex-grow: 1; }
+        .tool-icon { font-size: 2.2rem; width: 65px; height: 65px; line-height: 65px; border-radius: 50%; margin: 0 auto 20px; color: #ffffff; display: flex; align-items: center; justify-content: center; }
+        .tool-card h3 { font-size: 1.3rem; font-weight: 600; margin: 0 0 10px; color: var(--text-dark); }
+        .tool-card .tool-description { color: var(--text-light); font-size: 0.9rem; margin-bottom: 25px; min-height: 50px; }
+        .btn { background: var(--primary-color); color: #ffffff; border: none; padding: 12px 24px; font-size: 0.95rem; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; width: 100%; box-sizing: border-box; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn:hover { background: #0b5ed7; box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4); transform: translateY(-2px); }
+        #how-it-works { background-color: var(--bg-color); padding: 60px 0; text-align: center; border-top: 1px solid var(--border-color); }
+        #how-it-works h2 { font-size: 2.2rem; font-weight: 600; margin-bottom: 40px; }
+        .steps-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+        .step { max-width: 300px; }
+        .step-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
+        .step h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; }
+        .step p { color: var(--text-light); font-size: 0.95rem; }
+        footer { background-color: var(--text-dark); color: #f8f9fa; text-align: center; padding: 40px 20px 20px; margin-top: 40px; }
+        .footer-disclaimer { font-size: 0.8rem; color: #adb5bd; margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        #loader-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; }
+        .spinner { border: 6px solid #f3f3f3; border-top: 6px solid var(--primary-color); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+        #loader-overlay p { color: var(--text-dark); font-size: 1.1rem; margin-top: 20px; font-weight: 500; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+        .modal-content { background-color: #fefefe; margin: 10% auto; padding: 30px; border: 1px solid #888; width: 90%; max-width: 500px; border-radius: 12px; position: relative; animation: slide-down 0.4s ease-out; }
+        @keyframes slide-down { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 1; }
+        .close-btn:hover, .close-btn:focus { color: black; }
+        .modal-content h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; }
+        .calc-input, .modal-select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; font-family: var(--font-main); font-size: 1rem; }
+        #calc-results, .modal-results { margin-top: 20px; padding: 15px; background-color: var(--secondary-color); border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; line-height: 1.8; }
+        @media (max-width: 768px) { .hero h2 { font-size: 2.2rem; } }
+        @media (max-width: 576px) { .tools-grid { grid-template-columns: 1fr; } .hero h2 { font-size: 2rem; } .hero p { font-size: 1rem; } .modal-content { margin: 20% auto; } }
+    </style>
+</head>
+<body>
+    <!-- Full HTML body content here, with data-tool attributes on buttons -->
+    <div id="loader-overlay"><div class="spinner"></div><p id="loader-text">Processing your file...</p></div>
+    <header><div class="container"><a href="#" class="logo"><i class="fas fa-shield-halved"></i><h1>DocuShift Pro</h1></a></div></header>
+    <main>
+        <section class="hero"><div class="container"><h2>The Ultimate Toolkit for Documents & Media</h2><p>Secure, fast, and feature-rich tools to streamline your workflow.</p></div></section>
+        <section id="tools"><div class="container"><div class="tools-grid">
+            <div class="tool-card" style="--glow-color: #28a745;"><div class="card-content"><div class="tool-icon" style="background:#28a745;"><i class="fas fa-object-group"></i></div><h3>Merge PDF</h3><p class="tool-description">Combine multiple PDF files into a single, organized document.</p></div><button class="btn" data-tool="merge">Select PDFs</button></div>
+            <div class="tool-card" style="--glow-color: #ffc107;"><div class="card-content"><div class="tool-icon" style="background:#ffc107;"><i class="fas fa-cut"></i></div><h3>Split PDF</h3><p class="tool-description">Extract specific pages or split a PDF into multiple smaller files.</p></div><button class="btn" data-tool="split">Select PDF</button></div>
+            <div class="tool-card" style="--glow-color: #dc3545;"><div class="card-content"><div class="tool-icon" style="background:#dc3545;"><i class="fas fa-compress-arrows-alt"></i></div><h3>Compress PDF</h3><p class="tool-description">Reduce the file size of your PDF while maintaining quality.</p></div><button class="btn" data-tool="compress">Select PDF</button></div>
+            <div class="tool-card" style="--glow-color: #0d6efd;"><div class="card-content"><div class="tool-icon" style="background:#0d6efd;"><i class="fas fa-file-word"></i></div><h3>PDF to Word</h3><p class="tool-description">Convert your PDF files into editable Word documents (.docx).</p></div><button class="btn" data-tool="pdf-to-word">Select PDF</button></div>
+            <div class="tool-card" style="--glow-color: #6f42c1;"><div class="card-content"><div class="tool-icon" style="background:#6f42c1;"><i class="fas fa-file-image"></i></div><h3>JPG to PDF</h3><p class="tool-description">Convert JPG, PNG, and WEBP images into a PDF document.</p></div><button class="btn" data-tool="jpg-to-pdf">Select Images</button></div>
+            <div class="tool-card" style="--glow-color: #fd7e14;"><div class="card-content"><div class="tool-icon" style="background:#fd7e14;"><i class="fas fa-image"></i></div><h3>PDF to JPG</h3><p class="tool-description">Convert each page of a PDF into high-quality JPG images.</p></div><button class="btn" data-tool="pdf-to-jpg">Select PDF</button></div>
+            <div class="tool-card" style="--glow-color: #343a40;"><div class="card-content"><div class="tool-icon" style="background:#343a40;"><i class="fas fa-qrcode"></i></div><h3>QR Code Generator</h3><p class="tool-description">Create a QR code from any text or URL instantly.</p></div><button class="btn" data-tool="qr">Open Tool</button></div>
+        </div></div></section>
+    </main>
+    <footer><div class="container"><p>© 2025 DocuShift. All Rights Reserved.</p></div></footer>
+    
+    <!-- Hidden File Inputs, one for each file-based tool -->
+    <input type="file" id="file-input-merge" style="display: none;" accept="application/pdf" multiple onchange="getOptionsAndDispatch('merge', event)">
+    <input type="file" id="file-input-split" style="display: none;" accept="application/pdf" onchange="getOptionsAndDispatch('split', event)">
+    <input type="file" id="file-input-compress" style="display: none;" accept="application/pdf" onchange="getOptionsAndDispatch('compress', event)">
+    <input type="file" id="file-input-pdf-to-word" style="display: none;" accept="application/pdf" onchange="getOptionsAndDispatch('pdf-to-word', event)">
+    <input type="file" id="file-input-jpg-to-pdf" style="display: none;" accept="image/jpeg,image/png,image/webp" multiple onchange="getOptionsAndDispatch('jpg-to-pdf', event)">
+    <input type="file" id="file-input-pdf-to-jpg" style="display: none;" accept="application/pdf" onchange="getOptionsAndDispatch('pdf-to-jpg', event)">
+
+    <div id="modal-container" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><div id="modal-body"></div></div></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
